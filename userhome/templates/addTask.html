@@ -1,0 +1,92 @@
+
+<h1> Manage Tasks Efficiently</h1>
+
+
+{% if taskCount > 0 %}
+  {% for task in taskList %}
+        <div class ='post-entry'>
+          <a href="#"> <h2>{{task.taskName}}</h2></a>
+          <h3> {{task.taskDesc}}</h3>
+        </div>
+  {% endfor %}
+{% else %}
+  <h1> There are no tasks available.</h1>
+  <p>Let's add some tasks</p>
+{% endif %}
+
+
+<h1> </h1>
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Task</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add Your Task</h4>
+        </div>
+        <div class="modal-body">
+          <div>
+          <input type="textfield" name="taskName" placeholder="Enter Task Name" style="width:100%">
+            </div>
+        <br>
+          <div>
+          <input type="textfield" name="assignTo" placeholder="assign to" style="width:24%">
+          <input type="textfield" name="startDate" placeholder="start date" style="width:24%">
+          <input type="textfield" name="dueDate" placeholder="due date" style="width:24%">
+          <input type="textfiled" name="estimatedTime" placeholder="estimated time" style="width:25%">
+          </div>
+          <br>
+          <div>
+
+          <input type="textarea" name="taskDetails" placeholder="task details" style="width:100%">
+            </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-default" id="addtaskmodal" data-dismiss="modal">Add</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script>
+
+    $(function(){
+        $('#addtaskmodal').click(function(){
+            $.ajax({
+                type:"POST",
+                url:"addtask/",
+                data:{
+                    'taskName'  : $("input[name=taskName]").val(),
+                    'assignTo'  : $("input[name=assignTo]").val(),
+                    'startDate'  : $("input[name=startDate]").val(),
+                    'dueDate'  : $("input[name=dueDate]").val(),
+                    'estimatedTime'  : $("input[name=estimatedTime]").val(),
+                    'taskDetails'  : $("input[name=taskDetails]").val(),
+                    'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val()
+                    },
+                success:addtaskSuccess,
+                dataType:'html'
+            });
+
+        });
+
+
+
+    });
+
+    function addtaskSuccess(data,textStatus,jqXHR)
+    {
+        $('#main').html(data);
+    }
+
+
+    </script>

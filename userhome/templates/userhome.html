@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+{% load staticfiles %}
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="{% static '/userhomestyle.css' %}">
+
+  <link rel="stylesheet" href="{% static '/dashboardstyle.css' %}">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+{% csrf_token %}
+
+<div class="sidenav">
+
+  <a id="dashboard">My Dashboard</a>
+
+
+  <button class="dropdown-btn"> Task Planning
+    <i class="fa fa-caret-down"></i>
+  </button>
+  <div class="dropdown-container"  id ="taskPlanDrop">
+    <a id="addtask" name="addtask">Add</a>
+    <a href="">Edit</a>
+  </div>
+
+  <button class="dropdown-btn">Task Tracking
+    <i class="fa fa-caret-down"></i>
+  </button>
+  <div class="dropdown-container">
+    <a href="">Started</a>
+    <a href="">Progress</a>
+    <a href="">Done</a>
+  </div>
+
+  <button class="dropdown-btn">Planning
+    <i class="fa fa-caret-down"></i>
+  </button>
+  <div class="dropdown-container">
+    <a href="">High</a>
+    <a href="">Medium</a>
+    <a href="">Low</a>
+  </div>
+
+  <a href="/recurringTask">Recurring Tasks</a>
+  <a href="/collaboration">Collaboration</a>
+  <a href="/summary">Summary</a>
+</div>
+
+<div class="main" name="main" id="main">
+
+</div>
+
+<script>
+/* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+var dropdown = document.getElementsByClassName("dropdown-btn");
+var i;
+
+for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("click", function() {
+  this.classList.toggle("active");
+  var dropdownContent = this.nextElementSibling;
+  if (dropdownContent.style.display === "block") {
+  dropdownContent.style.display = "none";
+  } else {
+  dropdownContent.style.display = "block";
+  }
+  });
+}
+</script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script>
+
+    $(function(){
+        $('#addtask').click(function(){
+            $.ajax({
+                type:"GET",
+                url:"addtask/",
+                data:{
+                    'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val()
+                    },
+                success:addtaskSuccess,
+                dataType:'html'
+            });
+
+        });
+
+
+        $('#dashboard').click(function(){
+            $.ajax({
+                type:"GET",
+                url:"mydashboard/",
+                data:{
+                    'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val()
+                    },
+                success:dasboardSuccessView,
+                dataType:'html'
+            });
+
+        });
+    });
+
+    function addtaskSuccess(data,textStatus,jqXHR)
+    {
+        $('#main').html(data);
+    }
+
+    function dasboardSuccessView(data,textStatus,jqXHR)
+    {
+        $('#main').html(data);
+    }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+    {% load staticfiles %}
+
+
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WorkDone</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="{% static 'css/loginstyle.css' %}">
+</head>
+
+
+<body>
+    <div class="sidenav">
+         <div class="login-main-text">
+            <h2>
+                <div class="logo">
+                    <a class="logoText"> TASK </a> <img src="{% static 'logoImage.png' %}" alt="workdone logo" class="workDoneLogo"> <a class="logoText">DONE</a>
+                </div>
+            </h2>
+         </div>
+    </div>
+
+
+    <div class="main">
+        <div class="col-md-6 col-sm-12">
+            <div class="login-form">
+                <form method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <label>User Name</label>
+                        <input type="text" class="form-control" placeholder="User Name" id="username" name="username">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control" placeholder="Password" id ="password" name="password">
+                    </div>
+
+                    <button type="submit" class="btn btn-black" action="/home" name="login">Login</button>
+
+                    <input type="button" class="btn btn-secondary" value="Register" data-toggle="modal" data-target="#modalRegisterForm">
+                </form>
+
+                <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+                    <div class="modal-dialog" role="document">
+
+                            <form class="modal-content" action="register/" method ="POST">{%csrf_token%}
+                                <div class="modal-header text-center">
+                                    <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <div class="modal-body mx-3">
+
+                                    <div class="form-group row">
+                                        <label for="registerName" class="col-sm-2 col-form-label">Name</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="registerName" id="registerName" placeholder="name">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="registerEmailId" class="col-sm-2 col-form-label">Email</label>
+                                        <div class="col-sm-10">
+                                            <input type="email" class="form-control" name="registerEmailId" id="registerEmailId" placeholder="email">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="registerPassword" class="col-sm-2 col-form-label">Password</label>
+                                        <div class="col-sm-10">
+                                            <input type="password" class="form-control" name="registerPassword" id="registerPassword" placeholder="Password">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="modal-footer d-flex justify-content-center">
+                                    <button class="btn btn-deep-orange">Sign up</button>
+                                </div>
+                            </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
