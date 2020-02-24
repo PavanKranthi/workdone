@@ -9,16 +9,16 @@ def userloginView(request):
         username = request.POST['username']
         userpass = request.POST['password']
 
-        username = username.split()
-        userpass = userpass.split()
-
-        registerUser = registerDetail.objects.get(id=1)
+        registerUser = registerDetail.objects.get(username="pavan kranthi")
+        print(registerUser.password)
+        print(userpass)
 
         if(userpass == registerUser.password):
-            return redirect("home/")
+            print("hello" + username)
+            return redirect("home/",{'uname':username})
         else:
             message = "incorrect password.Please try again."
-            return redirect("home/")
+            return render(request,'loggingbase.html',{'errorMsg':message})
     else:
         username =''
         userpassword = ''

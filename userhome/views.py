@@ -8,7 +8,12 @@ def userhomeView(request):
 
 
 def dashboardView(request):
-    return render(request,'dashboard.html')
+    if request.method =="GET":
+        username = request.GET['username']
+    else:
+        username = request.POST['username']
+    print(username)
+    return render(request,'dashboard.html',{'uname':username})
 
 
 def addtaskView(request):

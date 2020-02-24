@@ -56,7 +56,9 @@
 <div class="main" name="main" id="main">
 
 </div>
-
+<div>
+  {{uname}}
+</div>
 <script>
 /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
 var dropdown = document.getElementsByClassName("dropdown-btn");
@@ -100,7 +102,8 @@ for (i = 0; i < dropdown.length; i++) {
                 type:"GET",
                 url:"mydashboard/",
                 data:{
-                    'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val()
+                    'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val(),
+                    'username': "{{uname}}"
                     },
                 success:dasboardSuccessView,
                 dataType:'html'
@@ -118,6 +121,10 @@ for (i = 0; i < dropdown.length; i++) {
     {
         $('#main').html(data);
     }
+
+    $(document).ready(function(){
+        $("#dashboard").trigger('click');
+}   );
     </script>
 
 </body>

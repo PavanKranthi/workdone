@@ -29,6 +29,7 @@
 
     <div class="main">
         <div class="col-md-6 col-sm-12">
+            {{errorMsg}}
             <div class="login-form">
                 <form method="POST">{% csrf_token %}
                     <div class="form-group">
@@ -93,5 +94,7 @@
             </div>
         </div>
     </div>
+
+    <div> {{uname}}</div>
 </body>
 </html>
